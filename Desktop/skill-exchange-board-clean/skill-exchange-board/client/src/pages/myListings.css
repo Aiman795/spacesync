@@ -1,0 +1,135 @@
+.my-listings-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.my-listings-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.listing-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.listing-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.listing-type,
+.listing-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.listing-type.offer {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.listing-type.request {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.listing-status.active {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.listing-status.matched {
+  background: #ede7f6;
+  color: #5e35b1;
+}
+
+.listing-status.closed {
+  background: #eeeeee;
+  color: #757575;
+}
+
+.listing-card h3 {
+  margin: 0.4rem 0;
+}
+
+.listing-category {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0 0 0.5rem;
+}
+
+.listing-meta {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0.2rem 0;
+}
+
+.listing-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-save,
+.btn-cancel {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn-edit,
+.btn-save {
+  background: #4f46e5;
+  color: #fff;
+}
+
+.btn-delete {
+  background: #fdecea;
+  color: #d32f2f;
+}
+
+.btn-cancel {
+  background: #eee;
+  color: #333;
+}
+
+.listing-edit-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.listing-edit-form label {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.listing-edit-form input,
+.listing-edit-form select,
+.listing-edit-form textarea {
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
