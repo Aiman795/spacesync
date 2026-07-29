@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "../../../lib/supabase-server.js";
-
+import { supabaseServer } from "../../../lib/supabase-admin.js";
 // GET /api/bookings?resource=<id>
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
