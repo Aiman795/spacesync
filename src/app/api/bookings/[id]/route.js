@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "../../../../lib/supabase-server.js";
+import { supabaseServer } from "../../../../lib/supabase-admin.js";
 
 // DELETE /api/bookings/:id
 export async function DELETE(_request, { params }) {

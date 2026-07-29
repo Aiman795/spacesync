@@ -2,13 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import Sidebar from "../components/Sidebar.jsx";
-import BookingForm from "../components/BookingForm.jsx";
+import Sidebar from "../../components/Sidebar.jsx";
+import BookingForm from "../../components/BookingForm.jsx";
 
 // FullCalendar touches the DOM at import time, so it must never be
 // server-rendered.
-const CalendarBookingUI = dynamic(() => import("../components/CalendarBookingUI.jsx"), { ssr: false });
-
+const CalendarBookingUI = dynamic(() => import("../../components/CalendarBookingUI.jsx"), { ssr: false });
 const VIEWS = [
   { key: "month", label: "Month" },
   { key: "week", label: "Week" },

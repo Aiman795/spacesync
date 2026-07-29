@@ -121,3 +121,8 @@ create policy "Users can update their own bookings"
   on bookings for update
   to authenticated
   using (auth.uid() = user_id);
+-- Additional columns for calendar/booking UI (Issue 4)
+alter table resources
+  add column building text,
+  add column tags text[],
+  add column buffer_minutes integer default 0;

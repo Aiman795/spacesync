@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "../../../lib/supabase-server.js";
+import { supabaseServer } from "../../../lib/supabase-admin.js";
 
 // GET /api/resources?type=Room&building=Block%20A&tag=projector
 export async function GET(request) {
