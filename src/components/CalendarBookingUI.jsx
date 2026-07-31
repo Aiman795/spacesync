@@ -12,7 +12,7 @@ const VIEW_MAP = {
   day: "timeGridDay",
 };
 
-export default function CalendarBookingUI({ resource, bookings, view, onSelectRange, onDeleteBooking }) {
+export default function CalendarBookingUI({ resource, bookings, view, onSelectRange, onDeleteBooking, onNewBooking }) {
   const calendarRef = useRef(null);
   const fcView = VIEW_MAP[view] || "timeGridWeek";
 
@@ -67,6 +67,21 @@ export default function CalendarBookingUI({ resource, bookings, view, onSelectRa
     }
   };
 
+  // Opens the booking form directly with a sensible default time slot,
+  // instead of relying on the user to drag-select on the calendar.
+  const handleNewBookingClick = () => {
+    const now = new Date();
+    const minutes = now.getMinutes();
+    const roundedMinutes = minutes < 30 ? 30 : 60;
+    const start = new Date(now);
+    start.setMinutes(roundedMinutes % 60, 0, 0);
+    if (roundedMinutes === 60) start.setHours(start.getHours() + 1);
+
+    const end = new Date(start.getTime() + 60 * 60 * 1000); // +1 hour default duration
+
+    onSelectRange(start, end);
+  };
+
   if (!resource) {
     return (
       <div className="calendar-card grid flex-1 place-items-center rounded-2xl border border-border bg-card p-4 text-muted">
@@ -76,7 +91,18 @@ export default function CalendarBookingUI({ resource, bookings, view, onSelectRa
   }
 
   return (
-    <div className="calendar-card flex-1 rounded-2xl border border-border bg-card p-4">
+    <div className="calendar-card flex-1 rounded-2xl border border-border bg-card p-4 flex flex-col gap-3">
+      {onNewBooking && (
+        <div className="flex justify-end px-1">
+          <button
+            type="button"
+            onClick={handleNewBookingClick}
+            className="rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-white hover:bg-primary-dark transition-colors shadow-sm"
+          >
+            + New booking
+          </button>
+        </div>
+      )}
       <FullCalendar
         ref={calendarRef}
         key={fcView}
