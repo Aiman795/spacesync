@@ -13,29 +13,37 @@ function formatRange(start, end) {
 
 export default function BookingForm({ resource, start, end, onCancel, onSubmit, submitting, error }) {
   const [title, setTitle] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [attendeeCount, setAttendeeCount] = useState(1);
   const [notes, setNotes] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
-    onSubmit({ title: title.trim(), attendeeCount: Number(attendeeCount) || 1, notes: notes.trim() });
+    onSubmit({ 
+      title: title.trim(), 
+      userEmail: userEmail.trim(), 
+      attendeeCount: Number(attendeeCount) || 1, 
+      notes: notes.trim() 
+    });
   };
 
-  const inputClass = "rounded-lg border border-border px-3 py-2.5 text-sm text-ink";
+  const inputClass = "w-full rounded-xl border border-border bg-background px-3.5 py-2.5 text-sm text-ink placeholder:text-muted focus:outline-none focus:border-primary transition-colors";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/45 p-5" onMouseDown={onCancel}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4" onMouseDown={onCancel}>
       <div
-        className="w-full max-w-[420px] rounded-2xl bg-card p-6 shadow-2xl"
+        className="w-full max-w-[440px] rounded-2xl border border-border bg-card p-6 shadow-2xl"
         onMouseDown={(e) => e.stopPropagation()}
       >
-        <h2 className="font-display text-lg font-semibold">Book {resource?.name}</h2>
-        <div className="mb-4 mt-1 font-mono text-xs text-muted">{formatRange(start, end)}</div>
+        <div className="mb-4">
+          <h2 className="font-display text-lg font-semibold tracking-tight text-ink">Book {resource?.name}</h2>
+          <div className="mt-1 font-mono text-xs text-muted">{formatRange(start, end)}</div>
+        </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3.5 flex flex-col gap-1.5">
-            <label htmlFor="title" className="text-xs font-semibold">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="title" className="text-xs font-semibold text-ink">
               Title
             </label>
             <input
@@ -49,8 +57,23 @@ export default function BookingForm({ resource, start, end, onCancel, onSubmit, 
             />
           </div>
 
-          <div className="mb-3.5 flex flex-col gap-1.5">
-            <label htmlFor="attendeeCount" className="text-xs font-semibold">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="userEmail" className="text-xs font-semibold text-ink">
+              Notification Email
+            </label>
+            <input
+              id="userEmail"
+              type="email"
+              className={inputClass}
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+              placeholder="name@example.com"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="attendeeCount" className="text-xs font-semibold text-ink">
               Attendee count
             </label>
             <input
@@ -64,8 +87,8 @@ export default function BookingForm({ resource, start, end, onCancel, onSubmit, 
             />
           </div>
 
-          <div className="mb-3.5 flex flex-col gap-1.5">
-            <label htmlFor="notes" className="text-xs font-semibold">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="notes" className="text-xs font-semibold text-ink">
               Notes
             </label>
             <textarea
@@ -78,12 +101,12 @@ export default function BookingForm({ resource, start, end, onCancel, onSubmit, 
             />
           </div>
 
-          {error && <div className="mt-1.5 text-xs text-coral">{error}</div>}
+          {error && <div className="rounded-lg border border-coral/20 bg-coral/10 p-3 text-xs font-medium text-coral">{error}</div>}
 
-          <div className="mt-5 flex justify-end gap-2.5">
+          <div className="mt-6 flex justify-end gap-3 pt-2">
             <button
               type="button"
-              className="rounded-lg border border-border px-4 py-2 text-sm font-semibold hover:bg-paper"
+              className="rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-ink hover:bg-paper transition-colors"
               onClick={onCancel}
             >
               Cancel
@@ -91,7 +114,7 @@ export default function BookingForm({ resource, start, end, onCancel, onSubmit, 
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50"
+              className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-primary-dark disabled:opacity-50 transition-colors shadow-sm"
             >
               {submitting ? "Booking…" : "Confirm booking"}
             </button>
