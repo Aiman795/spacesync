@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "../../../../lib/supabase-admin.js";
+import { supabaseServer } from "../../../../../lib/supabase-admin.js";
 
 // PATCH /api/bookings/[id]/check-in
 export async function PATCH(request, { params }) {
