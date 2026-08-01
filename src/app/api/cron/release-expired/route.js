@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseServer } from "../../../lib/supabase-admin.js";
+import { supabaseServer } from "../../../../lib/supabase-admin.js";
 
 // GET /api/cron/release-expired
 export async function GET() {
