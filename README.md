@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🏢 SpaceSync — Campus/Office Resource Booking Platform
 
-## Getting Started
+A booking platform for shared resources (rooms, desks, equipment, courts) that eliminates double-bookings through real-time, database-level conflict detection.
 
-First, run the development server:
+> Built as **Project 2** for the Fellowship Program — Web Development Track (2026 Cohort)
+
+🔗 **Live Demo:** [spacesync-brown.vercel.app](https://spacesync-brown.vercel.app/)
+
+---
+
+## 📌 Problem Statement
+
+Shared resources are managed through fragmented tools (Excel sheets, WhatsApp groups, sticky notes), causing double-bookings, no accountability, and access chaos. SpaceSync solves this with a self-serve booking platform with atomic conflict detection.
+
+---
+
+## ✨ Features
+
+- 🔐 **Auth:** Magic link login via Supabase Auth
+- 👥 **Role-Based Access:** Super Admin, Space Admin, Member roles with Row-Level Security
+- 🏢 **Resource Management:** Create/manage rooms, desks, equipment, courts with type, building, capacity, tags
+- 📅 **Calendar & Booking:** Month/Week/Day views, drag-to-select booking (FullCalendar)
+- ⚡ **Atomic Conflict Detection:** Postgres exclusion constraint guarantees no double-bookings, even under concurrent requests — includes buffer-zone enforcement between bookings
+- ✅ **Approval Workflow:** Approve/reject bookings for flagged resources
+- 📧 **Email Notifications:** Booking confirmations via Resend
+- ⏰ **Check-in & No-Show Handling:** Auto-release of unclaimed bookings via scheduled cron job
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Choice |
+|---|---|
+| Frontend | Next.js (App Router) |
+| Backend & Database | Supabase (Postgres + Auth + Realtime) |
+| Calendar UI | FullCalendar |
+| Email | Resend |
+| Hosting | Vercel |
+
+**Key technical detail:** Conflict detection uses a Postgres exclusion constraint (`EXCLUDE USING gist`) on `(resource_id, tstzrange(start_time, end_time))` — rejecting overlapping bookings at the database level rather than relying on application-layer checks alone.
+
+---
+
+## 👥 Team
+
+| Name | Role | GitHub |
+|------|------|--------|
+| Aiman Abbasi | Team Lead | [@Aiman795](https://github.com/Aiman795) |
+| Nabeela Ashiq | Member | [@nabeelaashiq005-gif](https://github.com/nabeelaashiq005-gif) |
+| Fatimatul Zahra | Member | [@Fatimatulzahra-tech](https://github.com/Fatimatulzahra-tech) |
+| Fatima Noor ul Imran | Member | [@FatimaNoorulImran](https://github.com/FatimaNoorulImran) |
+
+---
+
+## 🌿 Branching Strategy
+
+```
+main   → stable, production-ready code (protected, PR required)
+dev    → integration branch (default branch, protected, PR required)
+feature/* → individual feature branches
+```
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/Aiman795/spacesync.git
+cd spacesync
+npm install
+```
+
+Create a `.env.local` file with:
+```
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+RESEND_API_KEY=your_resend_api_key
+```
+
+Then run the database schema in Supabase SQL Editor (`supabase/schema.sql`), and start the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App runs at `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📋 Project Board
 
-## Learn More
+Tasks tracked via [GitHub Issues](../../issues).
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License.
